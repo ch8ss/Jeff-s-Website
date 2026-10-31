@@ -1,0 +1,711 @@
+{
+ "artworks": [
+  {
+   "slug": "red-monster",
+   "title": "Red Monster",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 1,
+   "images": [
+    {
+     "path": "/work/red-monster.webp",
+     "width": 1506,
+     "height": 1485,
+     "alt": "Close-up of a wild-eyed red and teal graffiti monster sticking out its tongue"
+    }
+   ]
+  },
+  {
+   "slug": "head-wrap",
+   "title": "Head Wrap",
+   "category": "canvas",
+   "medium": "Spray paint & acrylic",
+   "featured": 2,
+   "images": [
+    {
+     "path": "/work/head-wrap.webp",
+     "width": 749,
+     "height": 1008,
+     "alt": "Painting of a woman with closed eyes wearing a rainbow head wrap and a gold earring"
+    }
+   ]
+  },
+  {
+   "slug": "chevelle-ss",
+   "title": "Chevelle SS",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 3,
+   "images": [
+    {
+     "path": "/work/chevelle-ss.webp",
+     "width": 1800,
+     "height": 1540,
+     "alt": "Black and white Chevrolet Chevelle SS painted head-on against a teal and checkered background"
+    }
+   ]
+  },
+  {
+   "slug": "eye-bloom",
+   "title": "Eye Bloom",
+   "category": "canvas",
+   "medium": "Spray paint",
+   "featured": 4,
+   "images": [
+    {
+     "path": "/work/eye-bloom-v2.webp",
+     "width": 1165,
+     "height": 1335,
+     "alt": "Orange sunflower with a human eye at its centre, painted on canvas"
+    }
+   ]
+  },
+  {
+   "slug": "pennywise",
+   "title": "Pennywise",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 5,
+   "images": [
+    {
+     "path": "/work/pennywise.webp",
+     "width": 1440,
+     "height": 1353,
+     "alt": "Close-up of Pennywise the clown's grinning face painted on a white brick wall"
+    }
+   ]
+  },
+  {
+   "slug": "teal-burst",
+   "title": "Teal Burst",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 6,
+   "images": [
+    {
+     "path": "/work/teal-burst.webp",
+     "width": 1080,
+     "height": 1440,
+     "alt": "Indoor mural of a cartoon creature in an orange hat and green mask bursting out of a teal spray cloud"
+    }
+   ]
+  },
+  {
+   "slug": "freight-cosmos",
+   "title": "Freight Cosmos",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/freight-cosmos.webp",
+     "width": 1600,
+     "height": 1200,
+     "alt": "Pink, purple and silver galaxy piece painted along the side of a freight train car"
+    }
+   ]
+  },
+  {
+   "slug": "frog-queen",
+   "title": "Frog Queen",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/frog-queen.webp",
+     "width": 1800,
+     "height": 1106,
+     "alt": "Green graffiti letters beside a woman with long blue hair holding a frog, painted under a concrete overpass"
+    },
+    {
+     "path": "/work/frog-queen-2.webp",
+     "width": 529,
+     "height": 741,
+     "alt": "Detail of the woman with blue hair holding the frog"
+    }
+   ]
+  },
+  {
+   "slug": "alf-arcade",
+   "title": "ALF at the Arcade",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/alf-arcade.webp",
+     "width": 1440,
+     "height": 1080,
+     "alt": "Mural of the TV alien ALF on a wall inside a dimly lit arcade"
+    },
+    {
+     "path": "/work/alf-arcade-2.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "ALF mural seen from the side, glowing under purple arcade lights"
+    },
+    {
+     "path": "/work/alf-arcade-3.webp",
+     "width": 1080,
+     "height": 1429,
+     "alt": "Jeff and a friend posing in front of an ALF mural painted on a door"
+    }
+   ]
+  },
+  {
+   "slug": "garage-cruiser",
+   "title": "Garage Cruiser",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/garage-cruiser.webp",
+     "width": 980,
+     "height": 980,
+     "alt": "Cartoon bird driving a hot rod across a desert, painted on a garage door"
+    },
+    {
+     "path": "/work/garage-cruiser-2.webp",
+     "width": 980,
+     "height": 980,
+     "alt": "The garage door mural seen from the driveway beside a parked car"
+    }
+   ]
+  },
+  {
+   "slug": "soldier-skull",
+   "title": "Soldier Skull",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/soldier-skull.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Skull wearing an army helmet, painted large on an outdoor wall"
+    },
+    {
+     "path": "/work/soldier-skull-2.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Close-up of the soldier skull's teeth and helmet"
+    }
+   ]
+  },
+  {
+   "slug": "the-nun",
+   "title": "The Nun",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/the-nun.webp",
+     "width": 1600,
+     "height": 1200,
+     "alt": "The Nun horror character painted in black and white on a long concrete wall"
+    }
+   ]
+  },
+  {
+   "slug": "glass-block-letters",
+   "title": "Glass Block Letters",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/glass-block-letters-v2.webp",
+     "width": 1600,
+     "height": 569,
+     "alt": "Long purple, green and pink graffiti piece across a wall of glass blocks in an empty building"
+    }
+   ]
+  },
+  {
+   "slug": "oscar",
+   "title": "Oscar",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/oscar.webp",
+     "width": 942,
+     "height": 1728,
+     "alt": "Oscar the Grouch climbing out of a trash can, painted on a cinder block wall"
+    },
+    {
+     "path": "/work/oscar-2.webp",
+     "width": 875,
+     "height": 1800,
+     "alt": "Full view of the Oscar the Grouch mural in a hallway corner"
+    }
+   ]
+  },
+  {
+   "slug": "gangster-duck",
+   "title": "Gangster Duck",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/gangster-duck.webp",
+     "width": 1404,
+     "height": 1800,
+     "alt": "Cartoon duck graffiti character in a blue cap and a gold chain"
+    }
+   ]
+  },
+  {
+   "slug": "pennywise-alley",
+   "title": "Pennywise Alley",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/pennywise-alley.webp",
+     "width": 640,
+     "height": 1316,
+     "alt": "Tall Pennywise clown face painted on an outdoor alley wall at dusk"
+    },
+    {
+     "path": "/work/pennywise-alley-2.webp",
+     "width": 640,
+     "height": 1316,
+     "alt": "Close-up of the Pennywise mural's red nose and grin"
+    }
+   ]
+  },
+  {
+   "slug": "wildstyle",
+   "title": "Wildstyle",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/wildstyle.webp",
+     "width": 1013,
+     "height": 1800,
+     "alt": "Blue and teal wildstyle graffiti letters on a red and yellow wall"
+    }
+   ]
+  },
+  {
+   "slug": "bridge-king",
+   "title": "Bridge King",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/bridge-king.webp",
+     "width": 1536,
+     "height": 1536,
+     "alt": "Blue bear wearing a crown and smoking a cigar, painted on a wall under a bridge"
+    }
+   ]
+  },
+  {
+   "slug": "muppet-hallway",
+   "title": "Muppet Hallway",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/muppet-hallway.webp",
+     "width": 872,
+     "height": 1800,
+     "alt": "Long hallway with Muppet characters painted on both walls"
+    }
+   ]
+  },
+  {
+   "slug": "star-mushroom",
+   "title": "Star Mushroom",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/star-mushroom.webp",
+     "width": 1013,
+     "height": 1800,
+     "alt": "Red and yellow mushroom covered in stars, glowing against a black wall"
+    }
+   ]
+  },
+  {
+   "slug": "dreaming-face",
+   "title": "Dreaming Face",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/dreaming-face.webp",
+     "width": 932,
+     "height": 932,
+     "alt": "Close-up of a melting face with a pale eye in red and grey spray paint"
+    }
+   ]
+  },
+  {
+   "slug": "nebula-ceiling",
+   "title": "Nebula Ceiling",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/nebula-ceiling.webp",
+     "width": 1600,
+     "height": 739,
+     "alt": "Psychedelic green and blue spray-painted ceiling between office light panels"
+    },
+    {
+     "path": "/work/nebula-ceiling-2.webp",
+     "width": 1600,
+     "height": 739,
+     "alt": "Close-up of the green and blue nebula shapes on the ceiling"
+    }
+   ]
+  },
+  {
+   "slug": "bird-door",
+   "title": "Bird Door",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/bird-door.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Blue bird creature with sharp teeth painted on a shop door framed by painted vines"
+    }
+   ]
+  },
+  {
+   "slug": "morty-smoke",
+   "title": "Morty in the Smoke",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/morty-smoke.webp",
+     "width": 900,
+     "height": 1600,
+     "alt": "Mural of the cartoon character Morty surrounded by green smoke on an exterior wall"
+    }
+   ]
+  },
+  {
+   "slug": "shop-floor",
+   "title": "Shop Floor",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/shop-floor.webp",
+     "width": 1080,
+     "height": 1440,
+     "alt": "Shop interior with a painted wall character and swirling red line art covering the floor"
+    }
+   ]
+  },
+  {
+   "slug": "broken-heart",
+   "title": "Broken Heart",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/broken-heart.webp",
+     "width": 874,
+     "height": 1800,
+     "alt": "Cracked teal heart painted on a brick wall with gold lettering above"
+    },
+    {
+     "path": "/work/broken-heart-2.webp",
+     "width": 874,
+     "height": 1800,
+     "alt": "Close-up of the cracked teal heart"
+    }
+   ]
+  },
+  {
+   "slug": "tupac-memorial",
+   "title": "Tupac Memorial",
+   "category": "mural",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/tupac-memorial.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Memorial portrait of Tupac Shakur painted on a wall with 1971 lettering"
+    }
+   ]
+  },
+  {
+   "slug": "bulldog",
+   "title": "Bulldog",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/bulldog.webp",
+     "width": 1512,
+     "height": 1512,
+     "alt": "Orange bulldog face surrounded by black and white graffiti"
+    }
+   ]
+  },
+  {
+   "slug": "fisheye-freight",
+   "title": "Fisheye Freight",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/fisheye-freight-v2.webp",
+     "width": 1144,
+     "height": 777,
+     "alt": "Graffiti letters on a freight car, photographed through a fisheye lens"
+    }
+   ]
+  },
+  {
+   "slug": "rail-pillar",
+   "title": "Rail Pillar",
+   "category": "graffiti",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/rail-pillar.webp",
+     "width": 1681,
+     "height": 1800,
+     "alt": "Pennywise and Yoshi painted on a concrete pillar beside railroad tracks"
+    }
+   ]
+  },
+  {
+   "slug": "pennywise-board",
+   "title": "Pennywise on Board",
+   "category": "canvas",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/pennywise-board.webp",
+     "width": 1080,
+     "height": 1440,
+     "alt": "Pennywise the clown painted on a large board propped up in a living room"
+    }
+   ]
+  },
+  {
+   "slug": "nine-tails",
+   "title": "Nine Tails",
+   "category": "canvas",
+   "medium": "Acrylic on canvas",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/nine-tails.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Orange nine-tailed fox leaping over a blue sea, painted on canvas"
+    }
+   ]
+  },
+  {
+   "slug": "drip-skull",
+   "title": "Drip Skull",
+   "category": "canvas",
+   "medium": "Spray paint",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/drip-skull.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Grey skull with red and orange drips and tags, painted on canvas"
+    }
+   ]
+  },
+  {
+   "slug": "captain-spaulding",
+   "title": "Captain Spaulding",
+   "category": "canvas",
+   "medium": "Airbrush",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/captain-spaulding.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Captain Spaulding clown with blue face paint, painted on a black canvas"
+    }
+   ]
+  },
+  {
+   "slug": "myers-mkz",
+   "title": "Myers on the MKZ",
+   "category": "other",
+   "medium": "Airbrush on car panel",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/myers-mkz-v2.webp",
+     "width": 1440,
+     "height": 1170,
+     "alt": "Michael Myers mask airbrushed onto the side of a Lincoln MKZ"
+    }
+   ]
+  },
+  {
+   "slug": "green-rage",
+   "title": "Green Rage",
+   "category": "other",
+   "medium": "Airbrush on car hood",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/green-rage.webp",
+     "width": 1600,
+     "height": 1200,
+     "alt": "Green monster face airbrushed across the hood of a pink and white car at night"
+    }
+   ]
+  },
+  {
+   "slug": "cosmic-helmets",
+   "title": "Cosmic Helmets",
+   "category": "other",
+   "medium": "Airbrush on helmets",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/cosmic-helmets.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Airbrushed helmet with pink, blue and purple lightning effects"
+    },
+    {
+     "path": "/work/cosmic-helmets-2.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Lightning-effect helmet shown from the back"
+    },
+    {
+     "path": "/work/cosmic-helmets-3.webp",
+     "width": 1600,
+     "height": 777,
+     "alt": "Rainbow airbrushed helmet with a sharp-toothed visor on a workbench"
+    },
+    {
+     "path": "/work/cosmic-helmets-4.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "Rainbow airbrushed helmet on a stand in the studio"
+    },
+    {
+     "path": "/work/cosmic-helmets-5.webp",
+     "width": 1600,
+     "height": 777,
+     "alt": "Side view of the rainbow airbrushed helmet"
+    },
+    {
+     "path": "/work/cosmic-helmets-6.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Purple and pink airbrushed bike helmet resting on a wooden rail"
+    }
+   ]
+  },
+  {
+   "slug": "rc-bodies",
+   "title": "RC Bodies",
+   "category": "other",
+   "medium": "Airbrush on polycarbonate",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/rc-bodies.webp",
+     "width": 1350,
+     "height": 1800,
+     "alt": "Pink, black and carbon-pattern airbrushed RC car body"
+    },
+    {
+     "path": "/work/rc-bodies-2.webp",
+     "width": 1200,
+     "height": 1600,
+     "alt": "Two red and chrome airbrushed RC truck bodies on a workbench"
+    }
+   ]
+  },
+  {
+   "slug": "ps5-panel",
+   "title": "PS5 Panel",
+   "category": "other",
+   "medium": "Airbrush",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/ps5-panel.webp",
+     "width": 777,
+     "height": 1600,
+     "alt": "PlayStation 5 logo airbrushed in teal on a custom panel"
+    }
+   ]
+  },
+  {
+   "slug": "grinch-tee",
+   "title": "Grinch Tee",
+   "category": "other",
+   "medium": "Airbrush on fabric",
+   "featured": 0,
+   "images": [
+    {
+     "path": "/work/grinch-tee.webp",
+     "width": 1350,
+     "height": 1800,
+     "alt": "The Grinch in a Santa hat airbrushed on the front of a shirt"
+    }
+   ]
+  }
+ ],
+ "singles": {
+  "hero": {
+   "path": "/work/hero.webp",
+   "width": 1600,
+   "height": 1200
+  },
+  "portrait": {
+   "path": "/work/portrait.webp",
+   "width": 990,
+   "height": 1320
+  },
+  "process": {
+   "path": "/work/process.webp",
+   "width": 1800,
+   "height": 1106
+  }
+ }
+}

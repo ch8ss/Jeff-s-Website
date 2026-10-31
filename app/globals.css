@@ -1,26 +1,197 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Hover-driven layouts (accordions) only where there is a real hover: laptop/desktop with a mouse. */
+@custom-variant hover-wide (@media (width >= 64rem) and (hover: hover) and (pointer: fine));
+
+@theme {
+  /* Dark, purple-tinted surfaces */
+  --color-fog: #0c0a12;
+  --color-mist: #120d1c;
+  --color-slate: #1c1230;
+  --color-ink: #08070c;
+  /* Acid green = action (buttons, active, cursor). Purple = mood (highlights, glows). */
+  --color-accent: #a6ff4d;
+  --color-accent-hover: #c4ff85;
+  --color-accent-2: #b57cff;
+  --color-glow: #7b2fff;
+  --color-danger: #ff5c8a;
+  --color-text-dark: #08070c;
+  --color-text-light: #f1eefa;
+  --color-muted: #8c86a0;
+
+  --font-display: var(--font-anton), "Impact", sans-serif;
+  --font-serif: var(--font-cormorant), "Georgia", serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+
+  --radius-card: 18px;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: var(--color-fog);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
+  /* Stop sideways trackpad swipes from triggering browser back/forward on the swipeable cards. */
+  overscroll-behavior-x: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--color-text-light);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-glow);
+  color: white;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+  .display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.005em;
+  }
+  .serif-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px currentColor;
+  }
+  .text-outline-light {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-text-light);
+  }
+  .glass {
+    background: rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  .glass-light {
+    background: rgb(255 255 255 / 0.45);
+    border: 1px solid rgb(255 255 255 / 0.6);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Marquee */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track[data-pause="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Custom cursor only for fine pointers */
+@media (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-spin-slow,
+  .scroll-line {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Visually hidden but readable by screen readers / crawlers */
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* When Motion is managing the body colour, section backgrounds go transparent so the tween shows. */
+html[data-bg-managed] [data-bg] {
+  background-color: transparent !important;
+}
+html[data-preloaded] .preloader {
+  display: none;
+}
+
+/* Keep content clear of the fixed section rail on desktop. */
+@media (width >= 80rem) {
+  #main > section[data-theme] {
+    padding-right: 5.5rem;
+  }
+}
+html.has-cursor .cursor-root {
+  display: block;
 }
