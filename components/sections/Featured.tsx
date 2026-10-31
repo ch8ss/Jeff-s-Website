@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import type { Artwork } from "@/lib/types";
 import { imageUrl } from "@/lib/storage";
 import { formatPrice, formatSize } from "@/lib/format";
@@ -12,6 +13,8 @@ import { Arrow } from "../ui/Arrow";
 import { pillClass } from "../ui/PillButton";
 
 const EASE_OUT = "cubic-bezier(.2,.8,.2,1)";
+// Starts at ~3x its average speed, so a thrown card carries on at the speed it was released.
+const EASE_THROW = "cubic-bezier(.2,.6,.4,1)";
 
 /** Card follows 1:1 up to 60% of its width, then gently resists. */
 function rubberBand(offset: number, width: number) {
@@ -39,12 +42,13 @@ function releaseVelocity(samples: { t: number; x: number }[], releaseAt: number)
 export function Featured({ featured, others, title, artist }: { featured: Artwork[]; others: Artwork[]; title: string; artist: string }) {
   const [index, setIndexState] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
+  const underRef = useRef<HTMLDivElement>(null);
   // Gesture + animation state lives in refs: pointer moves never trigger React renders.
   const g = useRef({
     x: 0, y: 0, base: 0, dx: 0, tracking: false, dragging: false, suppressClick: false, raf: 0,
     samples: [] as { t: number; x: number }[],
     busy: false, goal: 0, timers: [] as number[], pending: null as null | { target: number; dir: 1 | -1 },
-    watchdog: 0, detach: null as null | (() => void), travel: 0,
+    watchdog: 0, detach: null as null | (() => void), travel: 0, under: 1,
   });
   // Single source of truth for the active card: card, image, info panel and list all read `index`.
   // The ref mirrors it for event handlers and timers that outlive a render.
@@ -61,6 +65,25 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
     el.style.transform = `translate3d(${dx}px,0,0) rotate(${dx / 28}deg)`;
     el.style.opacity = String(opacity);
   };
+
+  /**
+   * The card underneath previews whichever artwork a swipe would bring in: the next one when
+   * dragging left, the previous one when dragging right. Written to the DOM directly so React
+   * re-renders never swap it at the wrong moment.
+   */
+  const showUnder = useCallback(
+    (i: number, fade: boolean) => {
+      const n = featured.length;
+      const want = ((i % n) + n) % n;
+      if (g.current.under === want) return;
+      g.current.under = want;
+      underRef.current?.querySelectorAll<HTMLElement>("img[data-i]").forEach((im) => {
+        im.style.transition = fade ? "opacity .3s ease-out" : "none";
+        im.style.opacity = Number(im.dataset.i) === want ? "0.8" : "0";
+      });
+    },
+    [featured.length],
+  );
 
   /** Where the card visually is right now (e.g. halfway through snapping back). */
   const currentOffset = () => {
@@ -83,8 +106,9 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
       if (Math.abs(m.m41) > 0.5 || Math.abs(m.m42) > 0.5 || Math.abs(m.a - 1) > 0.01 || getComputedStyle(el).opacity !== "1") {
         setTransform(0, `transform .4s ${EASE_OUT}, opacity .3s`);
       }
+      showUnder(indexRef.current + 1, true);
     }, 750);
-  }, []);
+  }, [showUnder]);
 
   /** Jump any running change animation to its end state, so the card can be grabbed immediately. */
   const finishAnimation = useCallback(() => {
@@ -94,15 +118,17 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
     s.timers = [];
     s.pending = null;
     s.busy = false;
-    if (indexRef.current !== s.goal) setIndex(s.goal);
+    if (indexRef.current !== s.goal) flushSync(() => setIndex(s.goal));
     setTransform(0, null);
-  }, [setIndex]);
+    showUnder(s.goal + 1, false);
+  }, [setIndex, showUnder]);
 
+  /** Change card. `v` is the release speed (px/ms) of a swipe, so the throw continues at that speed. */
   const goTo = useCallback(
-    (next: number, dir: 1 | -1) => {
+    (next: number, dir: 1 | -1, v = 0) => {
       const n = featured.length;
       const s = g.current;
-      const run = (rawTarget: number, d: 1 | -1): void => {
+      const run = (rawTarget: number, d: 1 | -1, speed: number): void => {
         const el = cardRef.current;
         const target = ((rawTarget % n) + n) % n;
         if (!el) return;
@@ -110,40 +136,52 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
         if (s.busy) return void (s.pending = { target, dir: d });
         if (target === indexRef.current) return setTransform(0, `transform .4s ${EASE_OUT}`);
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          setIndex(target);
-          return setTransform(0, null);
+          flushSync(() => setIndex(target));
+          setTransform(0, null);
+          return showUnder(target + 1, false);
         }
         s.busy = true;
         s.goal = target;
-        // 1) throw the current card out
-        setTransform(-d * el.offsetWidth * 0.9, `transform .22s cubic-bezier(.4,0,.8,.4), opacity .22s`, 0);
+        // 1) The card underneath already shows the incoming artwork; throw the top card fully
+        //    off, continuing at the release speed, and only fade it once it's well on its way.
+        showUnder(target, false);
+        const from = currentOffset();
+        const to = -d * (el.offsetWidth * 1.35);
+        const remaining = Math.abs(to - from);
+        const sameWay = Math.sign(speed) === -d && Math.abs(speed) > 0.15;
+        const dur = Math.round(sameWay ? Math.min(340, Math.max(170, (3 * remaining) / Math.abs(speed))) : 300);
+        el.style.transition = `transform ${dur}ms ${EASE_THROW}, opacity ${Math.round(dur * 0.5)}ms ease-in ${Math.round(dur * 0.5)}ms`;
+        el.style.transform = `translate3d(${to}px,0,0) rotate(${to / 28}deg)`;
+        el.style.opacity = "0";
         s.timers = [
           window.setTimeout(() => {
-            setIndex(target);
-            // 2) bring the next one in from slightly behind
+            // 2) Swap the artwork while the card is invisible (committed now, not on a later
+            //    frame), then bring it forward over the card underneath, which shows the same piece.
+            flushSync(() => setIndex(target));
             el.style.transition = "none";
-            el.style.transform = "translate3d(0,18px,0) scale(.94)";
+            el.style.transform = "translate3d(0,14px,0) scale(.95)";
             el.style.opacity = "0";
             void el.offsetWidth; // flush so the next transition runs
-            el.style.transition = `transform .34s ${EASE_OUT}, opacity .22s ease-out`;
+            el.style.transition = `transform .32s ${EASE_OUT}, opacity .2s ease-out`;
             el.style.transform = "translate3d(0,0,0) scale(1)";
             el.style.opacity = "1";
             s.timers.push(
               window.setTimeout(() => {
                 s.busy = false;
                 s.timers = [];
+                showUnder(target + 1, true);
                 const queued = s.pending;
                 s.pending = null;
-                if (queued) run(queued.target, queued.dir);
+                if (queued) run(queued.target, queued.dir, 0);
                 else ensureRestSoon();
-              }, 300),
+              }, 320),
             );
-          }, 220),
+          }, dur),
         ];
       };
-      run(next, dir);
+      run(next, dir, v);
     },
-    [featured.length, setIndex, ensureRestSoon],
+    [featured.length, setIndex, ensureRestSoon, showUnder],
   );
 
   // Relative steps read the queued target so rapid clicks accumulate (3 clicks = 3 cards).
@@ -207,6 +245,7 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
     s.samples.push({ t: e.timeStamp, x: e.clientX });
     if (s.samples.length > 20) s.samples.shift();
     s.dx = rubberBand(s.base + dx, e.currentTarget.offsetWidth);
+    if (Math.abs(s.dx) > 2) showUnder(indexRef.current + (s.dx < 0 ? 1 : -1), false);
     // One DOM write per frame, however fast pointer events arrive.
     if (!s.raf)
       s.raf = requestAnimationFrame(() => {
@@ -254,9 +293,12 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
     const v = releaseVelocity(s.samples, at);
     const projected = s.dx + v * 180;
     const threshold = Math.min(70, width * 0.18);
-    if (projected <= -threshold) goTo(indexRef.current + 1, 1);
-    else if (projected >= threshold) goTo(indexRef.current - 1, -1);
-    else setTransform(0, `transform .4s ${EASE_OUT}`);
+    if (projected <= -threshold) goTo(indexRef.current + 1, 1, v);
+    else if (projected >= threshold) goTo(indexRef.current - 1, -1, v);
+    else {
+      setTransform(0, `transform .4s ${EASE_OUT}`);
+      showUnder(indexRef.current + 1, true);
+    }
     ensureRestSoon();
   }
 
@@ -283,6 +325,7 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
       if (w.locked || g.current.busy || g.current.tracking) return; // ignore momentum after a swipe
       w.offset -= e.deltaX;
       setTransform(rubberBand(w.offset, el.offsetWidth), null);
+      if (Math.abs(w.offset) > 2) showUnder(indexRef.current + (w.offset < 0 ? 1 : -1), false);
       if (Math.abs(w.offset) > Math.min(90, el.offsetWidth * 0.22)) {
         w.locked = true;
         const dir = w.offset < 0 ? 1 : -1;
@@ -295,7 +338,7 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
       el.removeEventListener("wheel", onWheel);
       window.clearTimeout(w.timer);
     };
-  }, [goTo, ensureRestSoon]);
+  }, [goTo, ensureRestSoon, showUnder]);
 
   // Never leave timers or window listeners behind after unmount.
   useEffect(() => {
@@ -341,12 +384,13 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
         <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] md:max-w-[420px] xl:max-w-[440px]">
           <div className="relative">
             {back && (
-              <div data-slide-out aria-hidden="true" className="absolute inset-y-6 right-2 left-8 overflow-hidden rounded-[var(--radius-card)] border-4 border-white/85 shadow-2xl sm:inset-y-8">
+              <div ref={underRef} data-slide-out aria-hidden="true" className="absolute inset-y-6 right-2 left-8 overflow-hidden rounded-[var(--radius-card)] border-4 border-white/85 shadow-2xl sm:inset-y-8">
                 {featured.map((a, i) => {
                   const img = a.images[0];
                   if (!img) return null;
-                  const on = i === (index + 1) % featured.length;
-                  return <Image key={a.id} src={imageUrl(img.storage_path)!} alt="" fill sizes="(min-width:1280px) 440px, (min-width:640px) 420px, 90vw" className={`object-cover transition-opacity duration-500 ${on ? "opacity-80" : "opacity-0"}`} />;
+                  // Only the first render picks the visible one; after that showUnder() drives it.
+                  const on = i === 1 % featured.length;
+                  return <Image key={a.id} data-i={i} src={imageUrl(img.storage_path)!} alt="" fill loading="eager" sizes="(min-width:1280px) 440px, (min-width:640px) 420px, 90vw" className={`object-cover ${on ? "opacity-80" : "opacity-0"}`} />;
                 })}
               </div>
             )}
@@ -373,7 +417,8 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
                 className="relative block aspect-[4/5] overflow-hidden rounded-[16px] bg-ink"
                 aria-label={`${card.title}, view artwork`}
               >
-                {/* All featured images stay mounted; only the active one is visible. */}
+                {/* All featured images stay mounted and loaded; only the active one is visible. No fade:
+                    the swap happens while the card is invisible. */}
                 {featured.map((a, i) => {
                   const img = a.images[0];
                   if (!img) return null;
@@ -384,9 +429,10 @@ export function Featured({ featured, others, title, artist }: { featured: Artwor
                       alt={i === index ? img.alt : ""}
                       aria-hidden={i === index ? undefined : true}
                       fill
+                      loading="eager"
                       sizes="(min-width:1280px) 440px, (min-width:640px) 420px, 90vw"
                       draggable={false}
-                      className={`object-cover transition-opacity duration-200 ${i === index ? "opacity-100" : "opacity-0"}`}
+                      className={`object-cover ${i === index ? "opacity-100" : "opacity-0"}`}
                     />
                   );
                 })}
