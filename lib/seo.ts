@@ -1,6 +1,7 @@
 import type { Artwork, Post, Settings } from "./types";
 import { imageUrl } from "./storage";
 import { SITE_URL } from "./site";
+import { socialEntries } from "./socials";
 
 const abs = (p: string | null | undefined) => {
   const u = imageUrl(p);
@@ -17,7 +18,7 @@ export function personJsonLd(s: Settings) {
       url: SITE_URL,
       image: abs(s.story_image_path ?? s.hero_image_path),
       address: s.city ? { "@type": "PostalAddress", addressLocality: s.city } : undefined,
-      sameAs: Object.values(s.socials ?? {}).filter(Boolean),
+      sameAs: socialEntries(s.socials).map(([, url]) => url),
     },
     { "@context": "https://schema.org", "@type": "WebSite", name: `${s.artist_name} — Wall Art & Graffiti`, url: SITE_URL },
   ];

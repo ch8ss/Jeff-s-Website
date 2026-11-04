@@ -19,10 +19,9 @@ export const seedSettings: Settings = {
     { value: "200K", label: "followers" },
   ],
   socials: {
-    instagram: "https://instagram.com/",
-    youtube: "https://youtube.com/",
-    behance: "https://behance.net/",
-    x: "https://x.com/",
+    instagram: "https://www.instagram.com/jeffbellart",
+    youtube: "https://www.youtube.com/@jeffbellart",
+    facebook: "https://www.facebook.com/share/1A32dssV1g/",
   },
   hero_image_path: manifest.singles.hero.path,
   hero_image_alt: "Pink, purple and silver galaxy graffiti piece by Jeff painted along the side of a freight train car",

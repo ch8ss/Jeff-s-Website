@@ -219,7 +219,7 @@ export async function saveSettings(_prev: ActionResult, formData: FormData): Pro
     .map((i) => ({ value: g(`stat_value_${i}`), label: g(`stat_label_${i}`) }))
     .filter((s) => s.value && s.label);
   const socials = Object.fromEntries(
-    ["instagram", "youtube", "behance", "x", "pinterest", "linkedin"].map((k) => [k, g(`social_${k}`)]).filter(([, v]) => v),
+    ["instagram", "youtube", "facebook", "behance", "x", "pinterest", "linkedin"].map((k) => [k, g(`social_${k}`)]).filter(([, v]) => v),
   );
   for (const k of ["hero", "story"]) {
     if (g(`${k}_image_path`) && (g(`${k}_image_alt`) ?? "").length < 10) return { ok: false, message: `The ${k} image needs alt text (at least 10 characters)` };

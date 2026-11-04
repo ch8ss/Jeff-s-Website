@@ -85,7 +85,7 @@ export type Testimonial = { id: string; quote: string; source: string; sort_orde
 export type Stat = { value: string; label: string };
 
 export type Socials = Partial<
-  Record<"instagram" | "youtube" | "behance" | "x" | "pinterest" | "linkedin", string>
+  Record<"instagram" | "youtube" | "facebook" | "behance" | "x" | "pinterest" | "linkedin", string>
 >;
 
 export type Settings = {

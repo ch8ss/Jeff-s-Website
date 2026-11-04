@@ -7,7 +7,7 @@ import { ImageField } from "./ImageField";
 import { VideoField } from "./VideoField";
 import { btn, card, input, label } from "./styles";
 
-const SOCIALS = ["instagram", "youtube", "behance", "x", "pinterest", "linkedin"] as const;
+const SOCIALS = ["instagram", "youtube", "facebook", "behance", "x", "pinterest", "linkedin"] as const;
 
 export function SettingsForm({ s }: { s: Settings }) {
   const [state, action, pending] = useActionState<ActionResult, FormData>(saveSettings, { ok: false });

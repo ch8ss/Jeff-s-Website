@@ -8,9 +8,9 @@ import { Logo } from "./Logo";
 import { Arrow } from "./Arrow";
 import { scrollToId } from "./Motion";
 import { NAV_LINKS } from "@/lib/nav";
+import { SOCIAL_NAMES, socialEntries } from "@/lib/socials";
 
 
-const SOCIAL_NAMES: Record<string, string> = { instagram: "Instagram", youtube: "YouTube", behance: "Behance", x: "X", pinterest: "Pinterest", linkedin: "LinkedIn" };
 
 export function Nav({ name, socials }: { name: string; socials: SocialsT }) {
   const pathname = usePathname();
@@ -119,7 +119,7 @@ export function Nav({ name, socials }: { name: string; socials: SocialsT }) {
           ))}
         </ul>
         <ul className="flex flex-wrap gap-5">
-          {Object.entries(socials).filter(([, u]) => u).map(([k, u]) => (
+          {socialEntries(socials).map(([k, u]) => (
             <li key={k}>
               <a href={u} target="_blank" rel="noopener noreferrer me" className="label text-muted hover:text-accent">
                 {SOCIAL_NAMES[k] ?? k}
